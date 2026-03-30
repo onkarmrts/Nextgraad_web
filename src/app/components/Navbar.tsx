@@ -42,9 +42,9 @@ export default function Navbar() {
             Products
           </Link>
 
-          <Link href="/internships" className="hover:text-white transition">
+          {/* <Link href="/internships" className="hover:text-white transition">
             Internships
-          </Link>
+          </Link> */}
 
           <Link href="/recruiters" className="hover:text-white transition">
             Recruiters
