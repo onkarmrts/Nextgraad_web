@@ -7,6 +7,10 @@ export default function ProductsPage() {
       subtitle:
         "AI powered profile and resume optimization that improves ATS score and highlights real skills.",
       icon: "🧠",
+      status: "LIVE",
+      statusColor: "bg-green-500/20 text-green-300 border-green-400/30",
+      buttonText: "Explore",
+      buttonLink: "/ai-ecosystem",
       features: [
         "ATS Resume Score Improvement",
         "Role-Based Keyword Optimization",
@@ -19,6 +23,10 @@ export default function ProductsPage() {
       subtitle:
         "Advanced developer skill indexing system that evaluates technical abilities and project experience.",
       icon: "</>",
+      status: "UPCOMING",
+      statusColor: "bg-yellow-500/20 text-yellow-300 border-yellow-400/30",
+      buttonText: "Launching Soon",
+      buttonLink: "#",
       features: [
         "Project-Based Skill Index",
         "Developer Portfolio Validation",
@@ -31,6 +39,10 @@ export default function ProductsPage() {
       subtitle:
         "AI driven recruitment intelligence platform connecting companies with the best candidates.",
       icon: "👥",
+      status: "UPCOMING",
+      statusColor: "bg-yellow-500/20 text-yellow-300 border-yellow-400/30",
+      buttonText: "Launching Soon",
+      buttonLink: "#",
       features: [
         "Smart Candidate Matching",
         "AI Shortlisting & Ranking",
@@ -38,7 +50,6 @@ export default function ProductsPage() {
         "Verified Talent Discovery",
       ],
     },
-    
   ];
 
   const whyNextgraad = [
@@ -77,7 +88,7 @@ export default function ProductsPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#0b1020] px-4 py-20 text-white">
-      {/* Background Glow Effects (same as screenshot style) */}
+      {/* Background Glow Effects */}
       <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-purple-700/30 blur-[120px]" />
       <div className="absolute right-0 top-32 h-[500px] w-[500px] rounded-full bg-cyan-500/20 blur-[120px]" />
       <div className="absolute bottom-0 left-1/2 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-orange-500/10 blur-[140px]" />
@@ -90,9 +101,8 @@ export default function ProductsPage() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-3xl text-sm leading-7 text-gray-300 md:text-base">
-            Nextgraad is building AI-powered tools that help candidates build
-            stronger profiles, validate skills, and connect with recruiters and
-            companies intelligently.
+            Nextgraad is building AI-powered products that transform how
+            candidates build careers and how recruiters discover talent.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -119,48 +129,81 @@ export default function ProductsPage() {
           </h2>
 
           <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-7 text-gray-300 md:text-base">
-            Each product solves one critical problem in the career and hiring
-            journey. Together, they form a complete AI ecosystem.
+            We are launching multiple AI products. ProfileForge AI is live, and
+            the upcoming tools will complete the ecosystem.
           </p>
 
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
-            {products.map((product, index) => (
-              <div
-                key={index}
-                className="rounded-2xl border border-pink-500/40 bg-gradient-to-br from-[#241E38]/70 to-[#121524]/70 p-8 backdrop-blur-md transition hover:border-[#05C8FB]/60"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-r from-pink-500 to-orange-500 text-xl font-extrabold">
-                    {product.icon}
+            {products.map((product, index) => {
+              const isLive = product.status === "LIVE";
+
+              return (
+                <div
+                  key={index}
+                  className="relative rounded-2xl border border-pink-500/40 bg-gradient-to-br from-[#241E38]/70 to-[#121524]/70 p-8 backdrop-blur-md transition hover:border-[#05C8FB]/60"
+                >
+                  {/* STATUS BADGE */}
+                  <div
+                    className={`absolute right-6 top-6 rounded-full border px-4 py-1 text-xs font-bold tracking-wide ${product.statusColor}`}
+                  >
+                    {product.status}
                   </div>
 
-                  <div>
-                    <h3 className="text-xl font-extrabold">{product.title}</h3>
-                    <p className="mt-1 text-sm text-gray-300">
-                      {product.subtitle}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 space-y-2">
-                  {product.features.map((feature, i) => (
-                    <div
-                      key={i}
-                      className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-200"
-                    >
-                      <span className="font-bold text-[#05C8FB]">✓</span>{" "}
-                      {feature}
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-r from-pink-500 to-orange-500 text-xl font-extrabold">
+                      {product.icon}
                     </div>
-                  ))}
-                </div>
 
-                <div className="mt-7 flex justify-end">
-                  <button className="rounded-xl bg-[#F86815] px-5 py-2 text-sm font-bold text-white transition hover:opacity-90">
-                    Learn More
-                  </button>
+                    <div>
+                      <h3 className="text-xl font-extrabold">{product.title}</h3>
+                      <p className="mt-1 text-sm text-gray-300">
+                        {product.subtitle}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* FEATURES */}
+                  <div className="mt-6 space-y-2">
+                    {product.features.map((feature, i) => (
+                      <div
+                        key={i}
+                        className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-200"
+                      >
+                        <span className="font-bold text-[#05C8FB]">✓</span>{" "}
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* ACTION BUTTON */}
+                  <div className="mt-7 flex justify-end">
+                    {isLive ? (
+                      <Link
+                        href={product.buttonLink}
+                        className="rounded-xl bg-[#F86815] px-5 py-2 text-sm font-bold text-white transition hover:opacity-90"
+                      >
+                        {product.buttonText}
+                      </Link>
+                    ) : (
+                      <button
+                        disabled
+                        className="cursor-not-allowed rounded-xl bg-white/10 px-5 py-2 text-sm font-bold text-gray-400"
+                      >
+                        {product.buttonText}
+                      </button>
+                    )}
+                  </div>
+
+                  {/* UPCOMING TEXT */}
+                  {!isLive && (
+                    <p className="mt-4 text-xs text-gray-400">
+                      This product is currently under development and will be
+                      available soon.
+                    </p>
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -222,17 +265,17 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        {/* SECTION 4: CTA / FUTURE VISION */}
+        {/* SECTION 4: CTA */}
         <div className="mt-24 rounded-2xl border border-white/10 bg-white/5 p-10 text-center backdrop-blur-md md:p-14">
           <h2 className="text-3xl font-extrabold md:text-5xl">
-            We are Building the Future of{" "}
-            <span className="text-[#05C8FB]">AI-Powered Careers</span>
+            The Future of Careers will be{" "}
+            <span className="text-[#05C8FB]">AI-Verified</span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-4xl text-sm leading-7 text-gray-300 md:text-lg">
-            Hiring is changing. Careers are changing. Nextgraad products are
-            designed to make people shortlist-ready, skill-verified, and
-            opportunity-connected in the fastest way possible.
+            Nextgraad is building a complete ecosystem where candidates become
+            shortlist-ready through AI profile optimization, skill validation,
+            and opportunity matching.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
