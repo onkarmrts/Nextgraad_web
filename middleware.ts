@@ -2,21 +2,15 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const url = req.nextUrl;
-  const hostname = req.headers.get("host") || "";
+  const url = req.nextUrl.clone();
+  const host = req.headers.get("host") || "";
 
-  // Example: app.nextgraad.in
+  const hostname = host.split(":")[0];
   const subdomain = hostname.split(".")[0];
 
-  // If subdomain is "app"
-  if (subdomain === "profileforge") {
-    url.pathname = `/profileforge${url.pathname}`;
-    return NextResponse.rewrite(url);
-  }
-
-  // If subdomain is "crm"
-  if (subdomain === "crm") {
-    url.pathname = `/crm${url.pathname}`;
+  // IMPORTANT: change this according to your domain
+  if (hostname === "profileforgeai.nextgraad.in") {
+    url.pathname = `/app${url.pathname}`;
     return NextResponse.rewrite(url);
   }
 
