@@ -8,8 +8,8 @@ export default function ProductsPage() {
         "AI powered profile and resume optimization that improves ATS score and highlights real skills.",
       icon: "🧠",
       status: "LIVE",
-      statusColor: "bg-green-500/20 text-green-300 border-green-400/30",
-      buttonText: "Explore",
+      statusColor: "bg-yellow-500/20 text-yellow-300 border-yellow-400/30",
+      buttonText: "Locked",
       buttonLink: "/ai-ecosystem",
       features: [
         "ATS Resume Score Improvement",
@@ -25,7 +25,7 @@ export default function ProductsPage() {
       icon: "</>",
       status: "UPCOMING",
       statusColor: "bg-yellow-500/20 text-yellow-300 border-yellow-400/30",
-      buttonText: "Launching Soon",
+      buttonText: "Locked",
       buttonLink: "#",
       features: [
         "Project-Based Skill Index",
@@ -41,7 +41,7 @@ export default function ProductsPage() {
       icon: "👥",
       status: "UPCOMING",
       statusColor: "bg-yellow-500/20 text-yellow-300 border-yellow-400/30",
-      buttonText: "Launching Soon",
+      buttonText: "Locked",
       buttonLink: "#",
       features: [
         "Smart Candidate Matching",
