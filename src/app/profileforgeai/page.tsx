@@ -326,5 +326,11 @@
 //     </div>
 //   );
 // }
-
-<div> Welcome to Nextgraad</div>
+export default function Profileforgeai() {
+  return (
+    <>
+      <div> Welcome to Nextgraad</div>
+      
+    </>
+  )
+}
