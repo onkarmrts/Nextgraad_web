@@ -82,41 +82,48 @@ export async function POST(req: NextRequest) {
         to: email,
         subject: `🎉 Internship Offer Letter — Nextgraad`,
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <div style="background: #263a87; padding: 30px; text-align: center;">
-              <h1 style="color: white; margin: 0;">NEXTGRAAD</h1>
-              <p style="color: #ccc; margin: 5px 0 0;">Internship Division</p>
-            </div>
+  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <div style="background: #263a87; padding: 30px; text-align: center;">
+      <h1 style="color: white; margin: 0;">NEXTGRAAD</h1>
+      <p style="color: #ccc; margin: 5px 0 0;">Internship Division</p>
+    </div>
 
-            <div style="padding: 30px; background: #f9f9f9;">
-              <h2 style="color: #263a87;">Dear ${name},</h2>
-              <p>Congratulations! We are pleased to offer you an internship at <strong>Nextgraad</strong> as a <strong>${role} Intern</strong> in the <strong>${domain}</strong> domain.</p>
+    <div style="padding: 30px; background: #f9f9f9;">
+      <h2 style="color: #263a87;">Dear ${name},</h2>
+      <p>Congratulations! We are pleased to offer you an internship at <strong>Nextgraad</strong> as a <strong>${role} Intern</strong> in the <strong>${domain}</strong> domain.</p>
 
-              <p>Your offer letter is attached to this email as a PDF.</p>
+      <p>Your offer letter is attached to this email as a PDF.</p>
 
-              <p>To get started, click the button below to access your internship portal where you can:</p>
-              <ul>
-                <li>Choose your project</li>
-                <li>Select your preferred timeline (30 / 60 / 90 days)</li>
-                <li>Track your progress and submit your work</li>
-              </ul>
+      <p>To get started, click the button below to access your internship portal where you can:</p>
+      <ul>
+        <li>Choose your project</li>
+        <li>Select your preferred timeline (30 / 60 / 90 days)</li>
+        <li>Track your progress and submit your work</li>
+      </ul>
 
-              <div style="text-align: center; margin: 30px 0;">
-                <a href="${magicLink}"
-                  style="background: #263a87; color: white; padding: 14px 32px;
-                  text-decoration: none; border-radius: 6px; font-size: 16px;">
-                  Access Internship Portal
-                </a>
-              </div>
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="${magicLink}"
+          style="background: #263a87; color: white; padding: 14px 32px;
+          text-decoration: none; border-radius: 6px; font-size: 16px;">
+          Access Internship Portal
+        </a>
+      </div>
 
-              <p style="color: #999; font-size: 12px;">This link is valid for 7 days. If it expires, contact us for a new one.</p>
-            </div>
+      <p style="font-weight: bold; color: #d32f2f; font-size: 14px; text-align: center;">
+        ⚠️ Important: This link will work only on your registered email account (${email}). 
+        Please do not open it from a different Google account.
+      </p>
 
-            <div style="background: #263a87; padding: 15px; text-align: center;">
-              <p style="color: white; margin: 0; font-size: 12px;">Nextgraad Internship Team</p>
-            </div>
-          </div>
-        `,
+      <p style="color: #999; font-size: 12px;">
+        This link is valid for 7 days. If it expires, contact us for a new one.
+      </p>
+    </div>
+
+    <div style="background: #263a87; padding: 15px; text-align: center;">
+      <p style="color: white; margin: 0; font-size: 12px;">Nextgraad Internship Team</p>
+    </div>
+  </div>
+`,
         attachments: [
           {
             filename: `Offer-Letter-${name.replace(/ /g, '-')}.pdf`,
