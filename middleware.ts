@@ -1,22 +1,24 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 export function middleware(req: NextRequest) {
-  const url = req.nextUrl.clone();
-  const host = req.headers.get("host") || "";
+  const internId = req.cookies.get('intern_id')?.value
 
-  const hostname = host.split(":")[0];
-  const subdomain = hostname.split(".")[0];
-
-  // IMPORTANT: change this according to your domain
-  if (hostname === "profileforgeai.nextgraad.in") {
-    url.pathname = `/app${url.pathname}`;
-    return NextResponse.rewrite(url);
+  if (!internId) {
+    // Redirect to invalid/login page if no cookie
+    const url = req.nextUrl.clone()
+    url.pathname = '/auth/invalid'
+    return NextResponse.redirect(url)
   }
 
-  return NextResponse.next();
+  return NextResponse.next()
 }
 
+// Apply ONLY to these portal routes
 export const config = {
-  matcher: ["/((?!_next|favicon.ico).*)"],
-};
+  matcher: [
+    '/portal/dashboard',
+    '/portal/projects',
+    '/portal/submit',
+  ],
+}

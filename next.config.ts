@@ -1,12 +1,8 @@
+// next.config.ts
 import type { NextConfig } from "next";
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ["pdf-parse"],
-  },
+const nextConfig: NextConfig = {
+  serverExternalPackages: ['pdf-lib', 'qrcode', 'nodemailer', 'xlsx'],
 };
-
-module.exports = nextConfig;
 
 export default nextConfig;
