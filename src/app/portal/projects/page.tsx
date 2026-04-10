@@ -100,7 +100,7 @@ const ALL_PROJECTS: ProjectDoc[] = [
     id: 'ds-1', domain: 'Data Science', difficulty: 'Beginner',
     title: 'Exploratory Data Analysis on Sales Data',
     shortDesc: 'Perform end-to-end EDA on a real retail dataset and present key business insights.',
-    overview: 'You will work with a real-world retail sales dataset (Kaggle Superstore or similar) to perform comprehensive exploratory data analysis. The goal is to uncover patterns, outliers, and actionable insights that a business team could use to make decisions.',
+    overview: 'You will work with a real-world retail sales dataset to perform comprehensive exploratory data analysis. The goal is to uncover patterns, outliers, and actionable insights that a business team could use to make decisions.',
     objectives: ['Clean and preprocess raw dataset', 'Identify trends, seasonality, outliers', 'Build 10+ visualizations', 'Write business insight report', 'Present findings in slides'],
     deliverables: ['Jupyter notebook with full EDA', 'PDF report with insights', '5-slide summary presentation', 'GitHub repo'],
     techStack: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
@@ -566,9 +566,8 @@ const ALL_PROJECTS: ProjectDoc[] = [
   },
 ]
 
-// ═══════════════════════════════════════════════════════════════════════════════
-//  PAGE
-// ═══════════════════════════════════════════════════════════════════════════════
+const KAGGLE_DOMAINS = ['Data Science', 'Data Analytics', 'Business Analytics', 'Financial Analyst']
+
 export default function ProjectsPage() {
   const router = useRouter()
 
@@ -586,7 +585,6 @@ export default function ProjectsPage() {
       .catch(() => {})
   }, [])
 
-  // Only show domains matching intern's domain
   const domains = Array.from(new Set(ALL_PROJECTS.map(p => p.domain))).filter(domain =>
     internDomain
       ? domain.toLowerCase().includes(internDomain.toLowerCase()) ||
@@ -648,7 +646,6 @@ export default function ProjectsPage() {
         <button onClick={() => router.push('/portal/dashboard')} style={s.backBtn}>← Dashboard</button>
       </nav>
 
-      {/* Scrollable body */}
       <div style={s.body}>
 
         <div style={s.pageHeader}>
@@ -661,7 +658,6 @@ export default function ProjectsPage() {
           )}
         </div>
 
-        {/* Projects by domain */}
         {domains.map(domain => {
           const domainProjects = ALL_PROJECTS.filter(p => p.domain === domain)
           return (
@@ -726,9 +722,24 @@ export default function ProjectsPage() {
                             ))}
                           </div>
 
+                          {/* Overview + Kaggle note */}
                           <div style={s.section}>
                             <div style={s.sectionTitle}>📋 Project Overview</div>
                             <p style={s.sectionText}>{project.overview}</p>
+                            {KAGGLE_DOMAINS.includes(project.domain) && (
+                              <div style={s.kaggleNote}>
+                                📊 <strong>Dataset Resource:</strong> Source your dataset from{' '}
+                                
+                                  href={`https://www.kaggle.com/search?q=${encodeURIComponent(project.title.split(' ').slice(0, 3).join(' '))}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={s.kaggleLink}
+                                >
+                                  Kaggle Datasets ↗
+                                </a>
+                                {' '}— search <em>"{project.title.split(' ').slice(0, 3).join(' ')}"</em> to find relevant data for this project.
+                              </div>
+                            )}
                           </div>
 
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
@@ -758,7 +769,7 @@ export default function ProjectsPage() {
                             </div>
                           </div>
 
-                          {/* Timeline selection inside expanded card */}
+                          {/* Timeline selection */}
                           {isSelected && (
                             <div style={s.timelineSection}>
                               <div style={s.sectionTitle}>⏱ Select Your Timeline</div>
@@ -953,6 +964,21 @@ const s: Record<string, React.CSSProperties> = {
   sectionText:  { fontSize: 13, color: '#94a3b8', lineHeight: 1.7, margin: 0 },
   listItem:     { fontSize: 12, color: '#94a3b8', lineHeight: 1.8, display: 'flex', gap: 6 },
   bullet:       { color: '#6d28d9', flexShrink: 0 },
+  kaggleNote: {
+    marginTop: 10,
+    padding: '8px 12px',
+    background: 'rgba(20,184,166,0.08)',
+    border: '1px solid rgba(20,184,166,0.2)',
+    borderRadius: 8,
+    fontSize: 12,
+    color: '#5eead4',
+    lineHeight: 1.6,
+  },
+  kaggleLink: {
+    color: '#2dd4bf',
+    fontWeight: 600,
+    textDecoration: 'underline',
+  },
   timelineItem: {
     display: 'flex', gap: 12, alignItems: 'flex-start',
     background: 'rgba(255,255,255,0.03)',
