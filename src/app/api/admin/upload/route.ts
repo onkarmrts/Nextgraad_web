@@ -15,6 +15,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
     }
 
+    
+
     // Read Excel file
     const arrayBuffer = await file.arrayBuffer()
     const workbook = XLSX.read(arrayBuffer, { type: 'array' })
@@ -39,6 +41,8 @@ export async function POST(req: NextRequest) {
       const tokenExpiry = new Date()
       tokenExpiry.setDate(tokenExpiry.getDate() + 7) // 7 days
 
+
+      
       // Save intern to Supabase
       const { data: intern, error } = await supabase
         .from('interns')
@@ -77,6 +81,8 @@ export async function POST(req: NextRequest) {
       // Magic link URL
      const magicLink = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/verify?token=${magicToken}`
 
+
+      
       // Send email with PDF attached
       await sendEmail({
         to: email,
@@ -206,6 +212,7 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     console.error('Upload error:', error)
-    return NextResponse.json({ error: 'Something went wrong' }, { status: 500 })
+    console.error('Error details:', JSON.stringify(error, null, 2))  // ADD THIS
+    return NextResponse.json({ error: String(error) }, { status: 500 })
   }
 }
