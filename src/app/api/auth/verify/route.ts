@@ -5,39 +5,29 @@ export async function GET(req: NextRequest) {
   try {
     const token = req.nextUrl.searchParams.get("token");
 
-    // If no token -> redirect login
     if (!token) {
       return NextResponse.redirect(new URL("/portal/login", req.url));
     }
 
-    // Find intern with this token
+    // Find intern
     const { data: intern, error } = await supabase
       .from("interns")
       .select("*")
       .eq("magic_token", token)
       .single();
 
-    // If token invalid -> redirect login (NOT invalid page)
+    // invalid token -> go login
     if (error || !intern) {
       return NextResponse.redirect(new URL("/portal/login", req.url));
     }
 
-    // Check expiry
+    // expiry check
     const now = new Date();
     const expiry = new Date(intern.token_expires_at);
 
     if (now > expiry) {
-      // Expired -> redirect login (NOT expired page)
       return NextResponse.redirect(new URL("/portal/login", req.url));
     }
-
-    // Mark intern active (but DO NOT delete token)
-    await supabase
-      .from("interns")
-      .update({
-        status: "active",
-      })
-      .eq("id", intern.id);
 
     // Set cookie and redirect dashboard
     const response = NextResponse.redirect(
@@ -50,6 +40,16 @@ export async function GET(req: NextRequest) {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
     });
+
+    // IMPORTANT: delete token after successful use (one-time)
+    await supabase
+      .from("interns")
+      .update({
+        status: "active",
+        magic_token: null,
+        token_expires_at: null,
+      })
+      .eq("id", intern.id);
 
     return response;
   } catch (err) {
