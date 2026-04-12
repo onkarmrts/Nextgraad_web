@@ -121,11 +121,6 @@ export async function POST(req: NextRequest) {
           <li>Track your daily progress</li>
           <li>Submit your work and deliverables</li>
           <li>Download your completion certificate upon finishing</li>
-          <li>🔁 After your first login via the magic link below, you can return to your portal anytime at:
-            <a href="https://www.nextgraad.in/portal/dashboard" style="color: #1E2060; font-weight: bold;">
-              nextgraad.in/portal/dashboard
-            </a>
-          </li>
         </ul>
       </div>
 

@@ -41,7 +41,7 @@ export default function DashboardPage() {
   fetch("/api/intern/dashboard")
     .then((res) => {
       if (res.status === 401 || res.status === 404) {
-        router.push("/internships")
+        router.push('/portal/login')
         return null
       }
       return res.json()
