@@ -199,7 +199,7 @@ const TESTIMONIALS = [
 ];
 
 const HOOKS = [
-  { icon: "⏳", text: "Batch starting 10th April 2026 — seats are limited" },
+  // { icon: "⏳", text: "Batch starting 10th April 2026 — seats are limited" },
   {
     icon: "🎯",
     text: "Real recruiters are already browsing HireSense profiles",
@@ -668,10 +668,10 @@ export default function InternshipsPage() {
                 flexShrink: 0,
               }}
             />
-            <span style={{ color: "#FCA5A5", fontSize: 13, fontWeight: 700 }}>
+            {/* <span style={{ color: "#FCA5A5", fontSize: 13, fontWeight: 700 }}>
               🗓️ &nbsp;Next Batch Starts — 10th April 2026 &nbsp;·&nbsp; Limited
               Seats
-            </span>
+            </span> */}
           </div>
 
           {/* Live enroll badge */}
@@ -1427,9 +1427,9 @@ export default function InternshipsPage() {
                 flexShrink: 0,
               }}
             />
-            <span style={{ color: "#FCA5A5", fontSize: 13, fontWeight: 700 }}>
+            {/* <span style={{ color: "#FCA5A5", fontSize: 13, fontWeight: 700 }}>
               🗓️ Batch starts 10th April 2026 — Enrollment closes soon
-            </span>
+            </span> */}
           </div>
 
           <h2
@@ -1514,7 +1514,7 @@ export default function InternshipsPage() {
               textDecoration: "none",
             }}
           >
-            Enroll for ₹99 — 10th April Batch
+            Enroll for ₹99 
             <svg
               width="22"
               height="22"
@@ -2069,7 +2069,7 @@ export default function InternshipsPage() {
                 marginBottom: 14,
               }}
             >
-              Next Batch: <span className="gt">10th April 2026</span>
+              {/* Next Batch: <span className="gt">10th April 2026</span> */}
             </h2>
             <p style={{ color: "#475569" }}>
               Fill the enrollment form. Complete payment. Get your offer letter
@@ -2443,10 +2443,10 @@ export default function InternshipsPage() {
                 q: "When does HireSense AI unlock?",
                 a: "HireSense AI unlocks after you complete and submit your internship project. You connect your GitHub, LinkedIn, and resume — the AI scores you and makes your profile visible to recruiters on the platform.",
               },
-              {
-                q: "Is the batch date fixed at 10th April?",
-                a: "Yes. The next batch starts 10th April 2026. Seats are limited — enroll before they fill up. Students who enroll early get first access to project selection.",
-              },
+              // {
+              //   q: "Is the batch date fixed at 10th April?",
+              //   a: "Yes. The next batch starts 10th April 2026. Seats are limited — enroll before they fill up. Students who enroll early get first access to project selection.",
+              // },
             ].map((item, i) => (
               <div
                 key={i}
