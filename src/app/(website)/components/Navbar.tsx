@@ -52,7 +52,7 @@ export default function Navbar() {
 
           {/* Intern Dashboard Button */}
           <Link
-            href="/portal/dashboard"
+            href="/portal/loi"
             className="hover:text-white transition text-[#a78bfa] font-semibold"
           >
             Intern Dashboard
