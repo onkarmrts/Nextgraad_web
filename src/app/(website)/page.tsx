@@ -1,29 +1,31 @@
 import Navbar from "./components/Navbar"
-import Hero from "./components/Hero"
-import StatsSection from "./sections/StatsSection"
-import InternshipSection from "./sections/InternshipSection"
-import Roadmap from "./sections/Roadmap"
-import Vision from "./sections/Vision"
-import ProductsSection from "./sections/ProductsSection"
-import Ecosystem from "./sections/EcosystemSection"
-import CTASection from "./sections/CTASection"
+import MBAHero from "./components/MBAhero"
+
+import WhyNextgraad from "./sections/WhyNextgraad"
+import CoreOfferings from "./sections/CoreOfferings"
+import PlacementEcosystem from "./sections/PlacementEcosystem"
+import MBAStats from "./sections/MBAStats.tsx"
+import InternshipHub from "./sections/InternshipHub"
+import MBAAdmissionRoadmap from "./sections/MBAAdmissionRoadmap"
+import MBAApplyCTA from "./sections/MBAApplyCTA.tsx"
 
 import Footer from "./components/Footer"
 
 export default function Home() {
   return (
-    <>
-      
-      <Hero />
+    <div>
 
-      <Vision />
-      <ProductsSection />
-         <Ecosystem />
-      <StatsSection />
-      <InternshipSection />
-      <Roadmap />
-      <CTASection />
 
-    </>
+      <MBAHero />
+      <WhyNextgraad />
+      <CoreOfferings />
+      <PlacementEcosystem />
+      <MBAStats />
+      <MBAAdmissionRoadmap />
+       <InternshipHub />
+      <MBAApplyCTA />
+
+
+    </div>
   )
 }
