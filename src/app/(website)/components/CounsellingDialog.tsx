@@ -1,11 +1,14 @@
 "use client"
 
-import Link from "next/link"
-import Image from "next/image"
 import { useState } from "react"
 import { supabase } from "../../../lib/supabaseClient"
 
-function CounsellingDialog({ onClose }: { onClose: () => void }) {
+interface CounsellingDialogProps {
+  open: boolean
+  onClose: () => void
+}
+
+export default function CounsellingDialog({ open, onClose }: CounsellingDialogProps) {
   const [selectedProgram, setSelectedProgram] = useState("")
   const [selectedProfile, setSelectedProfile] = useState("")
   const [name, setName] = useState("")
@@ -14,40 +17,43 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
   const [error, setError] = useState("")
   const [submitted, setSubmitted] = useState(false)
 
+  if (!open) return null
+
+  function handleReset() {
+    setSubmitted(false)
+    setName("")
+    setPhone("")
+    setSelectedProgram("")
+    setSelectedProfile("")
+    setError("")
+  }
+
+  function handleClose() {
+    handleReset()
+    onClose()
+  }
+
   async function handleSubmit() {
-    if (!name.trim()) {
-      setError("Please enter your full name.")
-      return
-    }
-    if (!phone.trim() || phone.length < 10) {
-      setError("Please enter a valid 10-digit mobile number.")
-      return
-    }
+    if (!name.trim()) { setError("Please enter your full name."); return }
+    if (!phone.trim() || phone.length < 10) { setError("Please enter a valid 10-digit mobile number."); return }
     setLoading(true)
     setError("")
-
     const { error: sbError } = await supabase.from("leads").insert({
       name: name.trim(),
       phone: phone.trim(),
       program: selectedProgram || null,
       profile: selectedProfile || null,
     })
-
     setLoading(false)
-
-    if (sbError) {
-      console.error("Supabase error:", sbError.message)
-      setError("Something went wrong. Please try again.")
-    } else {
-      setSubmitted(true)
-    }
+    if (sbError) { console.error(sbError.message); setError("Something went wrong. Please try again.") }
+    else setSubmitted(true)
   }
 
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      style={{ background: "rgba(12,16,66,0.6)", backdropFilter: "blur(4px)" }}
-      onClick={e => { if (e.target === e.currentTarget) onClose() }}
+      style={{ background: "rgba(12,16,66,0.7)", backdropFilter: "blur(4px)" }}
+      onClick={e => { if (e.target === e.currentTarget) handleClose() }}
     >
       <div
         className="w-full max-w-md rounded-2xl overflow-hidden shadow-2xl"
@@ -67,13 +73,14 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
             </p>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-white/70 hover:text-white text-xl font-light leading-none mt-0.5"
           >
             ✕
           </button>
         </div>
 
+        {/* Success state */}
         {submitted ? (
           <div className="px-6 py-10 text-center">
             <div className="text-4xl mb-4">🎉</div>
@@ -82,18 +89,16 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
               Our counsellor will call you within 24 working hours.
             </p>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="font-semibold px-6 py-2.5 rounded-xl text-sm transition-all hover:-translate-y-0.5"
-              style={{
-                background: "linear-gradient(90deg, #C4308A, #E75228)",
-                color: "#fff",
-              }}
+              style={{ background: "linear-gradient(90deg, #C4308A, #E75228)", color: "#fff" }}
             >
               Done
             </button>
           </div>
         ) : (
           <div className="px-6 py-5 space-y-4">
+
             {/* Program */}
             <div>
               <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide" style={{ color: "#888" }}>
@@ -110,9 +115,7 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
                       background: selectedProgram === p ? "rgba(196,48,138,0.06)" : "transparent",
                       color: selectedProgram === p ? "#C4308A" : "#374151",
                     }}
-                  >
-                    {p}
-                  </button>
+                  >{p}</button>
                 ))}
               </div>
             </div>
@@ -133,9 +136,7 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
                       background: selectedProfile === p ? "rgba(231,82,40,0.06)" : "transparent",
                       color: selectedProfile === p ? "#E75228" : "#374151",
                     }}
-                  >
-                    {p}
-                  </button>
+                  >{p}</button>
                 ))}
               </div>
             </div>
@@ -173,11 +174,7 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
                   type="tel"
                   placeholder="Enter your number"
                   value={phone}
-                  onChange={e => {
-                    // Allow only digits, max 10
-                    const val = e.target.value.replace(/\D/g, "").slice(0, 10)
-                    setPhone(val)
-                  }}
+                  onChange={e => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                   className="flex-1 rounded-lg px-3 py-2.5 text-sm outline-none"
                   style={{ border: "1px solid #e5e7eb", color: "#111" }}
                   onFocus={e => (e.target.style.borderColor = "#C4308A")}
@@ -186,12 +183,10 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
               </div>
             </div>
 
-            {/* Error */}
             {error && (
               <p className="text-xs text-red-500 text-center -mt-1">{error}</p>
             )}
 
-            {/* Submit */}
             <button
               onClick={handleSubmit}
               disabled={loading}
@@ -220,128 +215,5 @@ function CounsellingDialog({ onClose }: { onClose: () => void }) {
         }
       `}</style>
     </div>
-  )
-}
-
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [dialogOpen, setDialogOpen] = useState(false)
-
-  return (
-    <>
-      <nav
-        className="w-full sticky top-0 z-50 bg-white border-b border-slate-100"
-        style={{ boxShadow: "0 1px 12px rgba(12,16,66,0.06)" }}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden">
-              <Image src="/logos/logo.png" alt="Nextgraad" width={30} height={30} priority />
-            </div>
-            <span className="font-bold text-lg tracking-tight" style={{ color: "#0C1042" }}>
-              Nextgraad
-            </span>
-          </Link>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8 text-slate-600 text-sm font-medium">
-            <Link href="/degree-courses" className="hover:text-slate-900 transition-colors">
-              Degree Courses
-            </Link>
-            <Link href="/products" className="hover:text-slate-900 transition-colors">
-              TalentPulseAI
-            </Link>
-            <Link href="/internships" className="hover:text-slate-900 transition-colors">
-              Internships
-            </Link>
-            <Link href="/recruiters" className="hover:text-slate-900 transition-colors">
-              Recruiters
-            </Link>
-          </div>
-
-          {/* CTA */}
-          <div className="hidden md:block">
-            <button
-              onClick={() => setDialogOpen(true)}
-              className="font-semibold px-5 py-2.5 rounded-xl text-sm text-white transition-all hover:-translate-y-0.5"
-              style={{
-                background: "linear-gradient(90deg, #C4308A 0%, #E75228 100%)",
-                boxShadow: "0 3px 14px rgba(196,48,138,0.25)",
-              }}
-            >
-              Get Free Counselling →
-            </button>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden text-xl font-bold"
-            style={{ color: "#0C1042" }}
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? "✕" : "☰"}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="md:hidden px-6 pb-6">
-            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-md text-slate-700 text-sm font-medium">
-              <div className="flex flex-col gap-4">
-                <Link
-                  href="/degree-courses"
-                  className="hover:text-slate-900 transition-colors"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Degree Courses
-                </Link>
-                <Link
-                  href="/products"
-                  className="hover:text-slate-900 transition-colors"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  TalentPulseAI
-                </Link>
-                <Link
-                  href="/internships"
-                  className="hover:text-slate-900 transition-colors"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Internships
-                </Link>
-                <Link
-                  href="/recruiters"
-                  className="hover:text-slate-900 transition-colors"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Recruiters
-                </Link>
-                <div className="border-t border-slate-100 pt-4 flex flex-col gap-3">
-                  <Link
-                    href="/portal/login"
-                    className="font-semibold transition-colors"
-                    style={{ color: "#C4308A" }}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={() => { setDialogOpen(true); setMenuOpen(false) }}
-                    className="text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-all text-center"
-                    style={{ background: "linear-gradient(90deg, #C4308A 0%, #E75228 100%)" }}
-                  >
-                    Get Free Counselling →
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {dialogOpen && <CounsellingDialog onClose={() => setDialogOpen(false)} />}
-    </>
   )
 }

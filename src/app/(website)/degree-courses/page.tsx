@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import CounsellingDialog from "../components/CounsellingDialog"
 
 const NG_GRADIENT = "linear-gradient(90deg, #C4308A 0%, #E75228 100%)"
 const NG_GRADIENT_TEXT: React.CSSProperties = {
@@ -259,6 +260,7 @@ const FAQ = [
 export default function OnlineMBADegreesPage() {
   const [selectedProgram, setSelectedProgram] = useState(0)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [open, setOpen] = useState(false) 
 
   return (
     <div className="bg-white text-slate-900 antialiased" style={{ fontFamily: "'Sora', 'Plus Jakarta Sans', sans-serif" }}>
@@ -284,13 +286,14 @@ export default function OnlineMBADegreesPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-12">
-            <a
-              href="#counseling"
+            <button
+              
               className="inline-flex items-center justify-center gap-2 font-bold px-7 py-3.5 rounded-xl text-sm transition-all hover:-translate-y-0.5 text-white"
               style={{ background: NG_GRADIENT, boxShadow: "0 6px 24px rgba(196,48,138,0.3)" }}
+              onClick={() => setOpen(true)}
             >
               Book Free Counselling →
-            </a>
+            </button>
             <a
               href="#programs"
               className="inline-flex items-center justify-center gap-2 border border-slate-200 hover:border-slate-400 text-slate-600 hover:text-slate-900 font-semibold px-7 py-3.5 rounded-xl text-sm transition-all"
@@ -518,16 +521,17 @@ export default function OnlineMBADegreesPage() {
                     {ONLINE_MBA_PROGRAMS[selectedProgram].avgPackage}
                   </p>
                 </div>
-                <a
-                  href="#counseling"
+                <button
+                  
                   className="block text-center font-semibold px-4 py-2 rounded-lg text-white text-sm transition-all hover:-translate-y-0.5"
                   style={{
                     background: NG_GRADIENT,
                     boxShadow: "0 4px 12px rgba(196,48,138,0.25)",
                   }}
+                   onClick={() => setOpen(true)}
                 >
                   Get Counselling
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -660,13 +664,14 @@ export default function OnlineMBADegreesPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#"
+            <button
+             
               className="inline-flex items-center justify-center gap-2 font-bold px-8 py-3.5 rounded-xl text-sm text-white transition-all hover:-translate-y-0.5"
               style={{ background: NG_GRADIENT, boxShadow: "0 6px 24px rgba(196,48,138,0.3)" }}
+               onClick={() => setOpen(true)}
             >
               Book Free Counselling →
-            </a>
+            </button>
             <a
               href="#programs"
               className="inline-flex items-center justify-center gap-2 border border-slate-200 hover:border-slate-400 text-slate-600 hover:text-slate-900 font-semibold px-8 py-3.5 rounded-xl text-sm transition-all"
@@ -686,6 +691,7 @@ export default function OnlineMBADegreesPage() {
           </div>
         </div>
       </section>
+      <CounsellingDialog open={open} onClose={() => setOpen(false)} />
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap');

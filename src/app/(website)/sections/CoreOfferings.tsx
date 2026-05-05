@@ -77,7 +77,7 @@ export default function CoreOfferings() {
 
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/programs"
+                  href="/degree-courses"
                   className="font-bold px-6 py-3 rounded-xl text-sm transition-all hover:-translate-y-0.5"
                   style={{
                     background: "linear-gradient(90deg, #C4308A 0%, #E75228 100%)",
@@ -88,7 +88,7 @@ export default function CoreOfferings() {
                   Explore Programs →
                 </Link>
                 <Link
-                  href="/counselling"
+                  href="https://api.whatsapp.com/send?phone=917400179704"
                   className="font-semibold px-6 py-3 rounded-xl text-sm transition-all hover:-translate-y-0.5"
                   style={{
                     border: "1px solid rgba(255,255,255,0.18)",

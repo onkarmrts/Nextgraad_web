@@ -36,6 +36,8 @@ const initialsColors = [
 ]
 
 export default function MBAApplyCTA() {
+
+
   return (
     <section className="bg-white py-20 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
@@ -132,7 +134,7 @@ export default function MBAApplyCTA() {
                 color: "#f4a07a",
               }}
             >
-              🎓 Applications Open — 2025 Batch
+              🎓 Applications Open — 2026 Batch
             </span>
 
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight max-w-xl mx-auto leading-tight">
@@ -155,18 +157,19 @@ export default function MBAApplyCTA() {
 
             <div className="flex flex-wrap gap-3 justify-center mb-8">
               <Link
-                href="/counselling"
+                href="/degree-courses"
                 className="font-bold px-8 py-3.5 rounded-xl text-sm transition-all hover:-translate-y-0.5"
                 style={{
                   background: "linear-gradient(90deg, #C4308A 0%, #E75228 100%)",
                   color: "#ffffff",
                   boxShadow: "0 6px 24px rgba(196,48,138,0.35)",
                 }}
+                
               >
                 Book Free Counselling →
               </Link>
               <Link
-                href="/programs"
+                href="/degree-courses"
                 className="font-semibold px-8 py-3.5 rounded-xl text-sm transition-all hover:-translate-y-0.5"
                 style={{
                   border: "1px solid rgba(255,255,255,0.18)",
